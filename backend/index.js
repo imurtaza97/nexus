@@ -14,12 +14,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-// Construct MongoDB connection string using environment variables
-const dbHost = process.env.DB_HOST;
-const dbPort = process.env.DB_PORT;
-const dbName = process.env.DB_NAME;
-const mongoURI = `mongodb://${dbHost}:${dbPort}/${dbName}`;
-
+// Get MongoDB URI from environment variables
+const mongoURI = process.env.MONGODB_URI;
 // Connect to MongoDB
 mongoose.connect(mongoURI).then(() => {
     console.log('Connected to MongoDB');
