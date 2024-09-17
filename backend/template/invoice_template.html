@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: normal;
+        font-size: 14px;
+        color: #545454;
+      }
+      table {
+        width: 100%;
+        padding: 20px;
+      }
+      .header .left {
+        text-align: start;
+      }
+      .header .right {
+        text-align: end;
+      }
+      td {
+        align-content: start;
+      }
+      p {
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <table class="header">
+      <tr>
+        <th class="left">
+          <img src="{{imageBase64}}" style="max-width: 150px" alt="" />
+        </th>
+        <th class="right">
+          <h2 style="font-weight: lighter; color: black">INVOICE</h2>
+        </th>
+      </tr>
+      <tr style="margin: 10px">
+        <td class="left">
+          <p style="margin-left: 10px">
+            <strong>{{organizationName}}</strong>
+          </p>
+          <p style="margin: 3px; margin-left: 10px; max-width: 300px">
+            {{organizationAddress}}.
+          </p>
+          <p style="margin: 3px; margin-left: 10px"></p>
+          <p style="margin: 5px; margin-left: 10px">+{{organizationPhone}}.</p>
+        </td>
+        <td class="right">
+          <p><strong>ORDER</strong> #{{orderNumber}}</p>
+          <p>{{date}}</p>
+        </td>
+      </tr>
+    </table>
+    <!-- Header -->
+    <!-- Invoice -->
+    <table style="border-collapse: collapse; width: 95%; margin: 20px">
+      <thead style="background-color: #edecec">
+        <tr>
+          <th style="padding: 10px; text-align: left">Detail</th>
+          <th style="padding: 10px; text-align: left">Validity</th>
+          <th style="padding: 10px; text-align: left">Period</th>
+          <th style="padding: 10px; text-align: right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{details}}
+        <tr style="border-bottom: 1px solid #b9b9b9">
+          <td></td>
+          <td></td>
+          <td style="padding: 10px; text-align: right; font-weight: bold">
+            Total:
+          </td>
+          <td style="padding: 10px; text-align: right; font-weight: bold">
+            {{currency}}{{totalAmount}}
+          </td>
+        </tr>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Invoice -->
+    <!-- Footer -->
+    <div style="width: 95%; padding: 20px; align-content: end">
+      <p><strong>Note:</strong></p>
+      <p style="text-align: justify">
+        For any questions regarding this invoice please contact us at
+        <strong>+91 7984348018</strong> or email us at
+        <strong>support@nexus.com</strong>.
+      </p>
+    </div>
+    <!-- Footer -->
+  </body>
+</html>
