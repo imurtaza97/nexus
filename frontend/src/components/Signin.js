@@ -11,22 +11,19 @@ const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { addAlert } = useAlert();
   const { showLoading, hideLoading, setLoadingProgress } = useLoading();
-  const { user, loading } = useUser();  // Use user context
+  const { user, loading, fetchUserData  } = useUser();  // Use user context
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Only proceed once loading is complete
-    if (!loading) {
-      if (user) {  // If the user is authenticated
-        const { isPaid, isSubscriptionActive } = user;
+    if (!loading && user) {
+      const { isPaid, isSubscriptionActive } = user;
 
-        if (!isPaid) {
-          navigate('/setup');
-        } else if (!isSubscriptionActive) {
-          navigate('/renew');
-        } else {
-          navigate('/dashboard');
-        }
+      if (!isPaid) {
+        navigate('/setup');
+      } else if (!isSubscriptionActive) {
+        navigate('/renew');
+      } else {
+        navigate('/dashboard');
       }
     }
   }, [user, loading, navigate]);
@@ -65,9 +62,9 @@ const Signin = () => {
 
       setLoadingProgress(80); // After successful response
       localStorage.setItem('authToken', response.data.token);
-      // Redirect the user to the appropriate page after login
+           await fetchUserData(); // Fetch user data to update context
       navigate('/dashboard');
-      setLoadingProgress(100); // Complete
+      setLoadingProgress(100);
     } catch (error) {
       setLoadingProgress(70); // Handle error
       let errorMessage = 'An unexpected error occurred. Please try again later.';

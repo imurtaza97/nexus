@@ -30,7 +30,7 @@ const Setup = () => {
     const token = localStorage.getItem('authToken');
     const { addAlert } = useAlert();
     const { showLoading, hideLoading, setLoadingProgress } = useLoading();
-    const { user } = useUser();
+    const { user, fetchUserData } = useUser();
 
     useEffect(() => {
         if (!user) {
@@ -241,6 +241,8 @@ const Setup = () => {
                         localStorage.setItem('isSetupComplete', '');
 
                         setLoadingProgress(100);
+                        await fetchUserData(); // Fetch user data to update context
+                        navigate('/dashboard');
                     } catch (error) {
                         setLoadingProgress(70);
                         let errorMessage = 'Payment verification failed. Please try again or contact us for assistance.';

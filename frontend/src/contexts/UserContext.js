@@ -11,32 +11,28 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchUserData = async () => {
+    setLoading(true);
     const token = localStorage.getItem('authToken');
     if (token) {
-      // Simulate fetching user data
-      const fetchUserData = async () => {
-        try {
-          const response = await axios.get('/api/user-details', {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
-          setUser(response.data);
-        } catch (error) {
-          localStorage.clear();
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchUserData();
-    } else {
-      setLoading(false);
+      try {
+        const response = await axios.get('/api/user-details', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        setUser(response.data);
+      } catch (error) {
+        setUser(null);
+      }
     }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchUserData();
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, loading }}>
+    <UserContext.Provider value={{ user, setUser, loading, fetchUserData }}>
       {children}
     </UserContext.Provider>
   );
